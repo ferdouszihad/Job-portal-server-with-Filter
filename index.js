@@ -27,7 +27,7 @@ const verifyToken = (req, res, next) => {
         if (err) {
             return res.status(401).send({ message: 'unauthorized access' });
         }
-
+        req.user = decoded;
         next();
     })
 }
@@ -111,7 +111,11 @@ async function run() {
             const email = req.query.email;
             const query = { applicant_email: email }
 
-            // console.log(req.cookies?.token)
+            console.log(req.cookies?.token)
+            // token email !== query email
+            if (req.user.email !== req.query.email) {
+                return res.status(403).send({ message: 'forbidden access' })
+            }
 
             const result = await jobApplicationCollection.find(query).toArray();
 
