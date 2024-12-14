@@ -12,5 +12,8 @@
  * 
  * set token to the cookie of res
  * 
+ * 2. send the token to the client side
+ * 
+ * 
  * 
 */
